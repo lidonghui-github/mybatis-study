@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.hd.mybatis.mapper.GoodsMapper">
+    <resultMap id="goodsMap" type="cn.hd.mybatis.po.Goods">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <collection property="customers" ofType="cn.hd.mybatis.po.Customer">
+            <id column="cid" property="id"></id>
+            <result column="cname" property="name"></result>
+        </collection>
+
+    </resultMap>
+    <insert id="saveGoods" useGeneratedKeys="true" keyProperty="id">
+        insert into t_goods(name)
+        values (#{name})
+    </insert>
+    <select id="findGoodsById" resultMap="goodsMap" parameterType="long" >
+        select c.id as cid, c.name as cname, s.id, s.name
+        from t_customer c,
+             t_goods s,
+             t_customer_goods gc
+        where c.id = gc.cid
+          and s.id = gc.gid
+          and s.id = #{id}
+    </select>
+
+</mapper>

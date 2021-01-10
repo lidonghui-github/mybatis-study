@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    
+    <properties resource="db.properties"/>
+    <settings>
+        <!-- 打印SQL-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <!-- 开启⼆级缓存 -->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+    <!--定义别名-->
+    <typeAliases>
+        <package name="cn.hd.mybatis.po"/>
+    </typeAliases>
+    <!-- 配置MyBatis运⾏环境 -->
+    <environments default="development">
+        <environment id="development">
+            <!-- 配置JDBC事务管理 -->
+            <transactionManager type="JDBC"></transactionManager>
+            <!-- POOLED配置JDBC数据源连接池 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driverClass}"></property>
+                <property name="url"
+                          value="${jdbcUrl}"></property>
+                <property name="username" value="${user}"></property>
+                <property name="password" value="${password}"></property>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mapper\RoleMapper.xml"/>
+        <mapper resource="mapper\HusbandMapper.xml"/>
+        <mapper resource="mapper\WifeMapper.xml"/>
+        <mapper resource="mapper\StudentMapper.xml"/>
+        <mapper resource="mapper\ClassesMapper.xml"/>
+        <mapper resource="mapper\CustomerMapper.xml"/>
+        <mapper resource="mapper\GoodsMapper.xml"/>
+    </mappers>
+</configuration>
